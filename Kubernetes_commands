@@ -1,0 +1,7 @@
+kubectl run nginx --image=nginx   #after image, the name is image name that is available at docker hub and we have to provide the
+                                  #the same image name but node name we can give anything which is besides run
+kubectl get pods   --To get the pods details
+kubectl describe pod nginx    -- to ge the more information of the created pod.
+kubectl Describe pod pod_name  -- to ge the more information of the created pod.
+kubectl get pods -o wide    -- to get some IP, On which node created, etc information.
+kubectl create -f file_name.yml    -- to create the pods using yaml file
