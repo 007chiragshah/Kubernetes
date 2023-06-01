@@ -1,15 +1,44 @@
+
+PODs command
+
 kubectl run nginx --image=nginx   #after image, the name is image name that is available at docker hub and we have to provide the
                                   #the same image name but node name we can give anything which is besides run
 kubectl get pods   --To get the pods details
 kubectl describe pod nginx    -- to ge the more information of the created pod.
 kubectl Describe pod pod_name  -- to ge the more information of the created pod.
 kubectl get pods -o wide    -- to get some IP, On which node created, etc information.
-kubectl create -f file_name.yml    -- to create the pods/replica controller/ReplicaSet using yaml file
+kubectl create -f file_name.yml    -- to create the pods with yaml file
+
+#---------------------------------------------------------------------------------------------
+
+Replication Controller Commands
+
+kubectl create -f RC_file_name.yml --to create the replica controller using yaml file
 kubectl get replicationController   -- To check the replica controller list
+
+#-----------------------------------------------------------------------------------------------
+
+ReplicaSet commands
+
+kubectl create -f ReplicaSet_file_name.yml --to create the replica set using yaml file
 kubectl get replicaset    -- To check the replica set list
 kubectl replace -f replicaset_filename.yaml    -- first change manually in file new replicas and then run this command
 kubectl scale --replicas=6 -f replicaset_filename.yaml  --To scale the replicas without modifying the file
 kubectl scale --replicas=6 replicaset myapp-replicaset --with replica set name in the type name format. 
 kubectl delete replicaset replicaset_name  --To delete the replicaset, it will delete the underlying pods also.
+kubectl apply -f replicaSett_file_name.yaml --to apply the changes we have done in yaml file
+
+
+#----------------------------------------------------------------------------------------------------
+
+Deployment Commands
+
+kubectl create -f deployment_file_name.yaml --to create the deployment using yaml file
 kubectl get deployments --to see the newly created deployment
+kubectl apply -f deployment_file_name.yaml
 kubectl get all --to see all the created objects at once
+kubectl apply -f deployment_file_name.yaml --to apply the changes we have done in yaml file
+Kubectl set image deployment/deployment_name \pod-container_name=new_image_name  --To update the image in deployment
+kubectl rollout status deployment/deployment_name  --To check the status of rollout
+kubectl rollout history deployment/deployment_name   --To see the revisions and history of rollout
+kubectl rollout undo deployment/deployment_name  --To rollback the changes we have done
