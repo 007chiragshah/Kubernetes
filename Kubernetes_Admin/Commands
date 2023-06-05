@@ -1,0 +1,7 @@
+NameSpace Commands
+
+servicename.namespace.svc.cluster.local   --To call the same service from different namespace
+kubectl get pods --namespace=kube-system  --To get the pods from different namespace
+kubectl create -f pod-definition.yaml --namespace=name_of_namespace   -- To create pods in other namespace
+kubectl create namespace name_of_namespace --To create the namespace directly
+kubectl create -f namespace_def_file.yaml  --To create the namespace with yaml file
