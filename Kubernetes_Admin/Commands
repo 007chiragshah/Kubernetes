@@ -5,3 +5,5 @@ kubectl get pods --namespace=kube-system  --To get the pods from different names
 kubectl create -f pod-definition.yaml --namespace=name_of_namespace   -- To create pods in other namespace
 kubectl create namespace name_of_namespace --To create the namespace directly
 kubectl create -f namespace_def_file.yaml  --To create the namespace with yaml file
+kubectl config set-context $(kubectl config current-context) --namespace=name_of_namespace  --To switch the name space in default
+kubectl get pods --all=namespaces  --To get the nodes from all namespaces
