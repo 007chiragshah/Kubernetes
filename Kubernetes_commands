@@ -64,4 +64,13 @@ Labels and selector command
 kubectl get pods --selector="env=dev"  --To get the pods which has label env=dev
 kubectl get all --selector="env=prod"  --To get all the objects from prod environment
 kubectl get pods --selector="env=prod,bu=finance,tier=frontend"  --To get the pods which has all 3 labels
+kubectl label node node_name key=value  --To apply label to node
+#------------------------------------------------------------------------------------------------------------------------
+
+Taints on node
+
+kubectl describe node node01 | grep Taint  --To check the taint is on that node or not
+kubectl taint node node01 spray=mortein:NoSchedule   --To apply the taint on the node with no schedule event
+ubectl taint nodes controlplane Taint_Name-  --To untain the node
+
 
