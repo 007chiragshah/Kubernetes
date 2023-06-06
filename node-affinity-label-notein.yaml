@@ -1,0 +1,20 @@
+apiVersion: 
+kind: 
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+    tier: frontend
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoreDuringExecution:
+        nodeSelectorTerms:
+         - matchExpressions:
+            - key: size
+              operator: NotIn
+              values:
+                - Small
+  containers:
+  - name: nginx
+    image: nginx
