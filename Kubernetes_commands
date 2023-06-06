@@ -42,3 +42,26 @@ Kubectl set image deployment/deployment_name \pod-container_name=new_image_name 
 kubectl rollout status deployment/deployment_name  --To check the status of rollout
 kubectl rollout history deployment/deployment_name   --To see the revisions and history of rollout
 kubectl rollout undo deployment/deployment_name  --To rollback the changes we have done
+
+#--------------------------------------------------------------------------------------------------------------------------------
+
+namespace commands
+
+NameSpace Commands
+
+servicename.namespace.svc.cluster.local   --To call the same service from different namespace
+kubectl get pods --namespace=kube-system  --To get the pods from different namespace
+kubectl create -f pod-definition.yaml --namespace=name_of_namespace   -- To create pods in other namespace
+kubectl create namespace name_of_namespace --To create the namespace directly
+kubectl create -f namespace_def_file.yaml  --To create the namespace with yaml file
+kubectl config set-context $(kubectl config current-context) --namespace=name_of_namespace  --To switch the name space in default
+kubectl get pods --all=namespaces  --To get the nodes from all namespaces
+
+#------------------------------------------------------------------------------------------------------------------------
+
+Labels and selector command
+
+kubectl get pods --selector="env=dev"  --To get the pods which has label env=dev
+kubectl get all --selector="env=prod"  --To get all the objects from prod environment
+kubectl get pods --selector="env=prod,bu=finance,tier=frontend"  --To get the pods which has all 3 labels
+
