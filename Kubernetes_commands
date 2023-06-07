@@ -1,3 +1,18 @@
+common commands
+
+kubectl create -f any_yaml_file to create an respective object
+kubectl replace --force -f file_name   --To delete the object and create again
+kubectl get object_name  --to get all the object with default name space
+kubectl delete object object_name  --to delete all the object with default name space
+kubectl get object object_name  -A/--all-namespace --to get object from all namespaces (A is short of it)
+kubectl get object object_name  -n/--namespace name-space_name  --To get the object from perticular namespace
+kubectl delete object_name object -n/--namespace name-space_name  --To deete the object from perticular namespace
+kubectl create object object_name --image=image_name --port=port_val --label="key=Value"  -- to create object in imperative way
+                                                                   -Kindly check in help if object will create with this or not
+kubectl create object object_name --image=image_name --port=port_val --label="key=Value" ... --dry-run=client -o yaml > file_name.yml
+       --to not create the object or just get the yaml file ( for this dry run will be use)
+
+#-----------------------------------------------------------------------------------------------
 
 PODs command
 
@@ -42,7 +57,7 @@ Kubectl set image deployment/deployment_name \pod-container_name=new_image_name 
 kubectl rollout status deployment/deployment_name  --To check the status of rollout
 kubectl rollout history deployment/deployment_name   --To see the revisions and history of rollout
 kubectl rollout undo deployment/deployment_name  --To rollback the changes we have done
-
+kubectl create deployment deployment_name --image=image_name --port=port_val --label="key=Value"
 #--------------------------------------------------------------------------------------------------------------------------------
 
 namespace commands
