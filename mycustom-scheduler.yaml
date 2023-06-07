@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-custom-scheduler
+spec:
+  containers:
+    - command:
+       - kubescheduler
+       - --address=127.0.0.1
+       - --kubeconfig=/etc/kubernetes/scheduler.conf
+       - --config=/etc/kubernetes/my-scheduler-config.yaml
+       image: k8s.gcr.io/kube-scheduler-amd64:v1.11.3
+       name: kube-scheduler
+       
+#-------------------------------------------------------------------------
+for above file we have given the config path for my-scheduler-config.yaml so we need to create that file at that path
+
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+profiles:
+ - schedulerName: my-scheduler
+leaderElection:
+  leaderElect: true
+  resourceNamespace: kube-system
+  resourceName: lock-object-my-scheduler
