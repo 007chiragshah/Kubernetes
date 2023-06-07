@@ -7,8 +7,8 @@ kubectl delete object object_name  --to delete all the object with default name 
 kubectl get object object_name  -A/--all-namespace --to get object from all namespaces (A is short of it)
 kubectl get object object_name  -n/--namespace name-space_name  --To get the object from perticular namespace
 kubectl delete object_name object -n/--namespace name-space_name  --To deete the object from perticular namespace
-kubectl create object object_name --image=image_name --port=port_val --label="key=Value"  -- to create object in imperative way
-                                                                   -Kindly check in help if object will create with this or not
+kubectl create object object_name --image=image_name --port=port_val --label="key=Value"  -- to create object in imperative way 
+ -----instead of pod as for pod we need to use run instead of create and alos Kindly check in help if object will create with this or not
 kubectl create object object_name --image=image_name --port=port_val --label="key=Value" ... --dry-run=client -o yaml > file_name.yml
        --to not create the object or just get the yaml file ( for this dry run will be use)
 
