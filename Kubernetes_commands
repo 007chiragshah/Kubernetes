@@ -90,4 +90,7 @@ kubectl describe node node01 | grep Taint  --To check the taint is on that node 
 kubectl taint node node01 spray=mortein:NoSchedule   --To apply the taint on the node with no schedule event
 ubectl taint nodes controlplane Taint_Name-  --To untain the node
 
+#----------------------------------------------------------------------------------------------
+config map
 
+kubectl create configmap my-scheduler-config --from-file /root/my-scheduler-config.yaml --To create config map from file
