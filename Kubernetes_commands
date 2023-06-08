@@ -109,3 +109,9 @@ kubectl create secret generic <secret_name> --from-file=<path_to_file>  --To fet
 kubectl create secret generic <secret_name> --from-file=secret_val.properties  --To fetch the single value from file
 kubectl create secret -f secret_file.yaml
 
+#-------------------------------------------------------------------------------------------
+Drain Node
+
+kubectl drain node_name
+kubectl cordon node_name
+kubectl uncordon node_name
