@@ -1,0 +1,24 @@
+apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
+resources:
+  - resources:
+      - secrets
+      - configmaps
+      - pandas.awesome.bears.example
+    providers:
+      - aescbc:
+          keys:
+            - name: key1
+              secret: <BASE 64 ENCODED SECRET>
+      - identity: {}
+      
+ ----------------------------------------------------------------------------
+ Also follow the below steps:
+ 
+ 1. Generate a 32-byte random key and base64 encode it. If you're on Linux or macOS, run the following command -
+
+         head -c 32 /dev/urandom | base64
+         
+ 2. Place that value in the secret field of the EncryptionConfiguration struct.
+ 3. Set the --encryption-provider-config flag on the kube-apiserver to point to the location of the config file.
+
