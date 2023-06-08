@@ -94,3 +94,18 @@ ubectl taint nodes controlplane Taint_Name-  --To untain the node
 config map
 
 kubectl create configmap my-scheduler-config --from-file /root/my-scheduler-config.yaml --To create config map from file
+kubectl create configmap generic <configmap_name> --from-literal=<key>=<value>  -- to pass secret with single key-value
+kubectl create configmap generic <configmap_name> --from-literal=<key>=<value> --from-literal=<key>=<value>  -- to pass secret with mult key-value
+kubectl create configmap generic <configmap_name> --from-file=<path_to_file>  --To fetch all the value of secret from file
+kubectl create configmap generic <configmap_name> --from-file=configmap_val.properties  --To fetch the single value from file
+kubectl create configmap -f configmap_file.yaml
+
+#--------------------------------------------------------------------------------------------------------------
+Secret App
+
+kubectl create secret generic <secret_name> --from-literal=<key>=<value>  -- to pass secret with single key-value
+kubectl create secret generic <secret_name> --from-literal=<key>=<value> --from-literal=<key>=<value>  -- to pass secret with mult key-value
+kubectl create secret generic <secret_name> --from-file=<path_to_file>  --To fetch all the value of secret from file
+kubectl create secret generic <secret_name> --from-file=secret_val.properties  --To fetch the single value from file
+kubectl create secret -f secret_file.yaml
+
