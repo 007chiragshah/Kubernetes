@@ -115,3 +115,38 @@ Drain Node
 kubectl drain node_name
 kubectl cordon node_name
 kubectl uncordon node_name
+
+#-----------------------------------------------------------------------------------------------------
+Generate CA certificate
+
+ 1. ca.key == openssl genrsa -out ca.key 2048
+ 2. ca.csr == openssl req -new -key ca.key -subj "/CN=KUBERNETES-CA" -out ca.csr
+ 3. ca.crt == openssl -x509 -req -in ca.csr -signkey ca.key -out ca.crt
+ 
+Clients Certificates
+
+Admin User
+ 
+  1. ca.key == openssl genrsa -out admin.key 2048
+  2 ca.csr == openssl req -new -key admin.key -subj "/CN=kube-admin/OU=system:masters" -out admin.csr   --Take a note that OU is used to define this is
+                                                                                                          admin user certificate with system:master
+  3 ca.crt == openssl x509 -req -in admin.csr -CA ca.crt -CAkey ca.key -out admin.crt
+  
+ kube-scheduler
+   1. ca.key == openssl genrsa -out scheduler.key 2048
+   2. ca.csr == openssl req -new -key scheduler.key  -subj "/CN=systemkube-scheduler" -out scheduler.csr
+   3. ca.crt == openssl x509 -req -in scheduler.csr -CA ca.crt -CAkey ca.key -out scheduler.crt
+   
+kube-control manager
+ 1. ca.key == openssl genrsa -out controller-manager.key 2048
+ 2. ca.csr == openssl req -new -key controller.key -subj "/CN=systemkube-control-manager" -out controller.csr
+ 3. ca.crt == openssl x509 -req -in controller-manager.csr -CA ca.crt -CAkey ca.key -out controller-manager.crt
+ 
+kubeproxy
+ 1. ca.key == openssl genrsa -out kubeproxy.key 2048
+ 2. ca.csr == openssl req -new -key kubeproxy.key -subj "/CN=kubeproxy" -out kubeproxy.csr
+ 3. ca.crt == openssl x509 -req -in kubeproxy.crt -CA ca.crt -CAkey ca.key -out kubeproxy.crt
+ 
+ 
+  
+ 
