@@ -147,6 +147,29 @@ kubeproxy
  2. ca.csr == openssl req -new -key kubeproxy.key -subj "/CN=kubeproxy" -out kubeproxy.csr
  3. ca.crt == openssl x509 -req -in kubeproxy.crt -CA ca.crt -CAkey ca.key -out kubeproxy.crt
  
- 
-  
+Different Certificates
+
+ 1. openssl genrsa -out old-ca.key 2048
+ 2. openssl req -new -key old-ca.key -subj "/CN=old-ca" -out old-ca.csr
+ 3. openssl x509 -req -in old-ca.csr -signkey old-ca.key -out old-ca.crt -days 365
+ 4. openssl x509 -req -in ca.csr -signkey ca.key -out server.crt -days 365
+ 5. openssl req -new -key apiserver-kubelet-client.key -out apiserver-kubelet-client.csr -subj "/CN=kube-apiserver-kubelet-client/O=system:masters"
+ 6. openssl req -new -key apiserver-kubelet-client.key -out apiserver-kubelet-client.csr -subj "/CN=kube-apiserver-kubelet-client/O=system:masters"
+ 7. openssl x509 -req -in apiserver-kubelet-client.csr -CA /root/new-ca/old-ca.crt -CAkey /root/new-ca/old-ca.key -CAcreateserial -out apiserver-kubelet-client-new.crt -days 365
+ 8. openssl req -new -key apiserver-etcd-client.key -out apiserver-etcd-client.csr -subj "/CN=kube-apiserver-etcd-client/O=system:masters"
+ 9. openssl x509 -req -in apiserver-etcd-client.csr -CA /root/new-ca/old-ca.crt -CAkey /root/new-ca/old-ca.key -CAcreateserial -out apiserver-etcd-client-new.crt -days 365
+10. openssl req -new -key apiserver-etcd-client.key -out apiserver-etcd-client.csr -subj "/CN=kube-apiserver-etcd-client/O=system:masters"
+11. openssl x509 -req -in apiserver-etcd-client.csr -CA /root/new-ca/old-ca.crt -CAkey /root/new-ca/old-ca.key -CAcreateserial -out apiserver-etcd-client-new.crt -days 365
+12. openssl req -new -key /etc/kubernetes/pki/apiserver-etcd-client.key -out apiserver-etcd-client.csr -subj "/CN=kube-apiserver-etcd-client/O=system:masters"
+13. openssl x509 -req -in apiserver-etcd-client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out apiserver-etcd-client.crt -days -10
+14. openssl x509 -req -in apiserver-etcd-client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out apiserver-etcd-client.crt -startdate 190101010101Z
+20170101000000Z
+200801010000Z
+15. "openssl", "req", "-new", "-key" ,"/etc/kubernetes/pki/apiserver-etcd-client.key", "-out", "/etc/kubernetes/pki/apiserver-etcd-client.csr", "-subj", "/CN=kube-apiserver-etcd-
+     client/O=system:masters"
+16. "openssl", "x509", "-req", "-in", "/etc/kubernetes/pki/apiserver-etcd-client.csr", "-CA", "/etc/kubernetes/pki/etcd/ca.crt", "-CAkey", "/etc/kubernetes/pki/etcd/ca.key", "-CAcreateserial", "-out",
+    "/etc/kubernetes/pki/apiserver-etcd-client.crt"
+17. openssl x509 -req -in /etc/kubernetes/pki/apiserver-etcd-client.csr -CA /etc/kubernetes/pki/etcd/ca.crt -CAkey /etc/kubernetes/pki/etcd/ca.key -CAcreateserial -out
+    /etc/kubernetes/pki/apiserver-etcd-client.crt -days 100
+18. openssl x509 -req -in apiserver.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out apiserver.crt
  
