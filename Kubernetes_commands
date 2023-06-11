@@ -146,7 +146,7 @@ kubeproxy
  1. ca.key == openssl genrsa -out kubeproxy.key 2048
  2. ca.csr == openssl req -new -key kubeproxy.key -subj "/CN=kubeproxy" -out kubeproxy.csr
  3. ca.crt == openssl x509 -req -in kubeproxy.crt -CA ca.crt -CAkey ca.key -out kubeproxy.crt
- 
+ 2
 Different Certificates
 
  1. openssl genrsa -out old-ca.key 2048
