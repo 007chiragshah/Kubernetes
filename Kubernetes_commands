@@ -146,9 +146,8 @@ kubeproxy
  1. ca.key == openssl genrsa -out kubeproxy.key 2048
  2. ca.csr == openssl req -new -key kubeproxy.key -subj "/CN=kubeproxy" -out kubeproxy.csr
  3. ca.crt == openssl x509 -req -in kubeproxy.crt -CA ca.crt -CAkey ca.key -out kubeproxy.crt
- 2
+ 
 Different Certificates
-
  1. openssl genrsa -out old-ca.key 2048
  2. openssl req -new -key old-ca.key -subj "/CN=old-ca" -out old-ca.csr
  3. openssl x509 -req -in old-ca.csr -signkey old-ca.key -out old-ca.crt -days 365
@@ -163,8 +162,6 @@ Different Certificates
 12. openssl req -new -key /etc/kubernetes/pki/apiserver-etcd-client.key -out apiserver-etcd-client.csr -subj "/CN=kube-apiserver-etcd-client/O=system:masters"
 13. openssl x509 -req -in apiserver-etcd-client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out apiserver-etcd-client.crt -days -10
 14. openssl x509 -req -in apiserver-etcd-client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out apiserver-etcd-client.crt -startdate 190101010101Z
-20170101000000Z
-200801010000Z
 15. "openssl", "req", "-new", "-key" ,"/etc/kubernetes/pki/apiserver-etcd-client.key", "-out", "/etc/kubernetes/pki/apiserver-etcd-client.csr", "-subj", "/CN=kube-apiserver-etcd-
      client/O=system:masters"
 16. "openssl", "x509", "-req", "-in", "/etc/kubernetes/pki/apiserver-etcd-client.csr", "-CA", "/etc/kubernetes/pki/etcd/ca.crt", "-CAkey", "/etc/kubernetes/pki/etcd/ca.key", "-CAcreateserial", "-out",
@@ -172,4 +169,40 @@ Different Certificates
 17. openssl x509 -req -in /etc/kubernetes/pki/apiserver-etcd-client.csr -CA /etc/kubernetes/pki/etcd/ca.crt -CAkey /etc/kubernetes/pki/etcd/ca.key -CAcreateserial -out
     /etc/kubernetes/pki/apiserver-etcd-client.crt -days 100
 18. openssl x509 -req -in apiserver.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out apiserver.crt
- 
+
+#--------------------------------------------------------------------------------------------------------------------------
+Networking Commands
+
+1. ip link  -- to check the ip link details
+2. ip addr add 192.168.1.10/24 dev eth0  --To add the IP to eth0
+3. route --To get the routing details
+4. ip route add 192.168.2.0/24 via 192.168.1.1 --To add the route so 2 different network connects each other, 
+                                                 here first ip is destination and 2nd after via is the gateway
+
+DNS
+
+1. add entry in /etc/host
+    192.168.1.11 db    ---Here is (IP name), now we can ping with db for that IP
+2. add entry in /etc/resolv.conf
+    name  IP
+3.  /etc/nsswitch.conf
+    hosts file dns   --Here the order is define as network switch will first check in /etc/host then in dns /etc/resolve.conf
+                     --we can change the order
+
+Network Name Space
+
+1. ip netns add red  --to add netns to red container
+2. ip netns  --To get the list of netns
+3. ip netns exec red ip link or ip -n red link  --execute netns command in red container
+
+
+Establish connectivity between 2 different container
+
+1. ip link add veth-red type veth peer name veth-blue  --HEre veth-red and veth-blue namespace names
+2. ip link set veth-red netns red  --To set the ntens to container
+3. ip -n red addr add 192.168.15.1 dev veth-red  --To assign the IP to red  netns
+4. ip -n red link set veth-rred ip  --to make up the netns
+5. ip netns exec red ping 192.168.15.2  --to ping the other netns from red container
+6. arp -- to check the arp tabel
+7. ip netns exec red arp --to check the arps in red container
+
