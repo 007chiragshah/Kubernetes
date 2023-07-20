@@ -5,3 +5,8 @@ We can get the infor of cluser by command - aws eks list-clusters
 Now we need to update the cluster config file with aws cli so we can have all the cluster detail, so do so use the below command
      aws eks update-kubeconfig --name Cluster-Demo --region ap-south-1
 Once it done we have config file at location $HOME/.kube/config
+Now we need to create IAM role for worker node with below policies:
+   - AmazonEC2ContainerRegistryReadOnly
+   - AmazonEKS_CNI_Policy
+   - AmazonEKSWorkerNodePolicy
+Create the node group with this IAM role
