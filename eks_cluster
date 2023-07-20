@@ -1,0 +1,7 @@
+Create one IAM role for EKS cluster
+Create one IAM User with secret key
+Create one EC2 instance to install kubectl & aws cli
+We can get the infor of cluser by command - aws eks list-clusters
+Now we need to update the cluster config file with aws cli so we can have all the cluster detail, so do so use the below command
+     aws eks update-kubeconfig --name Cluster-Demo --region ap-south-1
+Once it done we have config file at location $HOME/.kube/config
